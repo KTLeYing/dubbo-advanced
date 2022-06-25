@@ -11,6 +11,7 @@ import org.apache.ibatis.jdbc.Null;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 /**
@@ -34,6 +35,19 @@ public class UserServiceMock implements UserService {
     @Override
     public String syaHello() {
         return "服务降级";
+    }
+
+    /**
+     * 异步调用
+     * @return
+     */
+    @Override
+    public CompletableFuture<String> syaHelloAsync() {
+        System.out.println("执行了异步服务");
+        //相当于在异步线程里执行sayHello方法！
+        return CompletableFuture.supplyAsync(() -> {
+            return syaHello();
+        });
     }
 
 

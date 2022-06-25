@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.mzl.dubbocommon.entity.User;
 import com.mzl.dubbocommon.response.RetResult;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * <p>
  *  服务类
@@ -25,4 +27,10 @@ public interface UserService extends IService<User> {
      * @return
      */
     String syaHello();
+
+    /**
+     * 异步调用
+     * @return
+     */
+    CompletableFuture<String> syaHelloAsync();
 }
