@@ -6,6 +6,7 @@ import com.mzl.dubboapi.service.UserService;
 import com.mzl.dubbocommon.response.RetResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -55,7 +56,8 @@ public class UserController {
     // 一致性 Hash，相同参数的请求总是发到同一提供者，当某一台提供者挂时，原本发往该提供者的请求，基于虚拟节点，平摊到其它提供者。
 //    @Reference(check = false, loadbalance = "consistenthash", timeout = 10000)
     //异步回调
-    @Reference(check = false, async = true, timeout = 10000)
+//    @Reference(check = false, async = true, timeout = 10000)
+    @Reference(check = false, timeout = 10000)
     private UserService userService;
 
     /**
@@ -103,6 +105,51 @@ public class UserController {
         System.out.println("我先去喝杯牛奶(做其他事)..." + Thread.currentThread().getName());
         //future.get()次方法阻塞获取结果
         return future.get();
+    }
+
+    /**
+     * kafka队列测试（生产者发送消息，无配置类）
+     * @param topic 要发送的队列
+     * @param msg 发送的消息
+     * @return
+     */
+    @GetMapping("/kafkaSend")
+    @ApiOperation(value = "kafka队列测试")
+    public RetResult kafkaSend(String topic, String msg){
+        return userService.kafkaSend(topic, msg);
+    }
+
+    /**
+     * kafka队列测试（生产者发送消息，有配置类）
+     * @param msg 发送的消息
+     * @return
+     */
+    @GetMapping("/kafkaSend1")
+    @ApiOperation(value = "kafka队列测试")
+    public RetResult kafkaSend1(String msg){
+        return userService.kafkaSend1(msg);
+    }
+
+    /**
+     * kafka队列测试（生产者发送消息，有配置类，同步发送）
+     * @param msg 发送的消息
+     * @return
+     */
+    @GetMapping("/kafkaSendSync")
+    @ApiOperation(value = "kafka队列测试，同步发送")
+    public RetResult kafkaSendSync(String msg){
+        return userService.kafkaSendSync(msg);
+    }
+
+    /**
+     * kafka队列测试（生产者发送消息，有配置类，异步发送）
+     * @param msg 发送的消息
+     * @return
+     */
+    @GetMapping("/kafkaSendAsync")
+    @ApiOperation(value = "kafka队列测试，异步发送")
+    public RetResult kafkaSendAsync(String msg){
+        return userService.kafkaSendAsync(msg);
     }
 
 }

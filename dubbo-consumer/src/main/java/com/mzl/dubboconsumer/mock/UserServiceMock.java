@@ -50,6 +50,40 @@ public class UserServiceMock implements UserService {
         });
     }
 
+    @Override
+    public RetResult kafkaSend(String topic, String msg) {
+        return null;
+    }
+
+    /**
+     * kafka队列测试（生产者发送消息，有配置类）
+     * @param msg
+     * @return
+     */
+    @Override
+    public RetResult kafkaSend1(String msg) {
+        return null;
+    }
+
+    /**
+     * kafka队列测试（生产者发送消息，有配置类）
+     * @param msg
+     * @return
+     */
+    @Override
+    public RetResult kafkaSendSync(String msg) {
+        return null;
+    }
+
+    /**
+     * kafka队列测试（生产者发送消息，有配置类，异步发送）
+     * @param msg
+     * @return
+     */
+    @Override
+    public RetResult kafkaSendAsync(String msg) {
+        return null;
+    }
 
     /**
      * Service接口实现了Mybatis-plus的IService，所以要覆盖里面的接口方法

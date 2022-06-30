@@ -33,4 +33,31 @@ public interface UserService extends IService<User> {
      * @return
      */
     CompletableFuture<String> syaHelloAsync();
+
+    /**
+     * kafka队列测试（生产者发送消息）
+     * @return
+     */
+    RetResult kafkaSend(String topic, String msg);
+
+    /**
+     * kafka队列测试（生产者发送消息，有配置类）
+     * @param msg
+     * @return
+     */
+    RetResult kafkaSend1(String msg);
+
+    /**
+     * kafka队列测试（生产者发送消息，有配置类，同步发送）
+     * @param msg
+     * @return
+     */
+    RetResult kafkaSendSync(String msg);
+
+    /**
+     * kafka队列测试（生产者发送消息，有配置类，异步发送）
+     * @param msg
+     * @return
+     */
+    RetResult kafkaSendAsync(String msg);
 }
